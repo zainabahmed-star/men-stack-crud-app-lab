@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Montenegrin+Gothic+One&family=Righteous&family=Saira:ital,wght@0,100..900;1,100..900&display=swap');
+body {
+    background-color: rgb(36, 36, 36);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 100vw;
+    font-family: "Righteous", sans-serif;
+}
+h1{
+    color: azure;
+}
+form {
+    font-family: "Righteous", sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #071d74;
+    padding: 20px 30px;
+    border-radius: 20px;
+    box-shadow: 5px 6px #792c27;
+    margin: 20px 10px;
+    color: azure;
+    gap: 20px;
+}
+
+button {
+    margin: 10px;
+    font-family: "Righteous", sans-serif;
+}
