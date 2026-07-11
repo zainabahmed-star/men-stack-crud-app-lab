@@ -53,17 +53,17 @@ app.post('/movies', async (req, res) => {
 })
 
 // show all movies ✅
-// app.get('/movies', async (req, res) => {
+app.get('/movies', async (req, res) => {
 
-//     let allMovies = await Movie.find()
-//     res.send(allMovies)
-// })
+    let allMovies = await Movie.find()
+    res.send(allMovies)
+})
 
 // show a movie by its id  ✅
-// app.get('/movies/:id', async (req, res) => {
-//     let movieById = await Movie.findById(req.params.id)
-//     res.send(movieById)
-// })
+app.get('/movies/:id', async (req, res) => {
+    let movieById = await Movie.findById(req.params.id)
+    res.send(movieById)
+})
 
 //edit == didnt work(i dont think we covered this)❌
 // app.get('/movies/:id/edit', async (req, res) => {
