@@ -35,21 +35,33 @@ app.get("/movies/new", async (req, res) => {
   res.render('new.ejs')
 });
 
-app.post('/movies', (req, res) => {
-    res.send(req.body)
+app.post('/movies', async (req, res) => {
+    const movieData = {}
+    movieData.name = req.body.name
+    movieData.genre = req.body.genre
+    movieData.releaseYear = req.body.releaseYear
+
+    if (req.body.isWatched === 'on'){
+        movieData.isWatched = true
+    } else {
+        movieData.isWatched = false
+    }
+
+    let createdMovie = await Movie.create(movieData)
+    res.redirect('/movies')
 
 })
 
-//show all movies
-app.get('/movies', async (req, res) => {
+// show all movies ✅
+// app.get('/movies', async (req, res) => {
 
-    let allMovies = await Movie.find()
-    res.send(allMovies)
-})
+//     let allMovies = await Movie.find()
+//     res.send(allMovies)
+// })
 
-//show a movie by its id == it worked ✅
+// show a movie by its id  ✅
 // app.get('/movies/:id', async (req, res) => {
-//     let movieById = await Movie.findById('6a50a128c86b1dee45b79bdf')
+//     let movieById = await Movie.findById(req.params.id)
 //     res.send(movieById)
 // })
 
@@ -59,18 +71,16 @@ app.get('/movies', async (req, res) => {
 //     res.render('edit.ejs')
 // })
 
-
-
 //update based on id == didnt work ❌
 // app.put('/movies/:id', async (req, res) => {
-//     let updateMovie = await Movie.findByIdAndUpdate("6a50a5d3622664efa6ad208b",
+//     let updateMovie = await Movie.findByIdAndUpdate(req.params.id,
 //         {name: 'Wonder'}, {new: true})
 //     res.send(updateMovie)
 // })
 
 // didnt work ❌
 // app.delete('/movies/:id', async (req, res) => {
-//     let deletedMovie = await Movie.findByIdAndDelete('6a50a5d3622664efa6ad208b')
+//     let deletedMovie = await Movie.findByIdAndDelete(req.params.id)
 //     res.send(deletedMovie)
 // })
 
