@@ -3,6 +3,7 @@ const morgan = require('morgan')
 const dotenv = require('dotenv').config()
 const mongoose = require('mongoose')
 const path = require('path')
+const methodOverride = require('method-override')
 const app = express()
 
 mongoose.connect(process.env.MONGODB_URI)
@@ -15,6 +16,9 @@ const Movie = require("./models/movie.js")
 
 //above morgan
 app.use(express.urlencoded({ extended: false }));
+
+app.use(methodOverride('_method'))
+
 app.use(morgan('dev'))
 app.use(express.static(path.join(__dirname, "public")))
 
@@ -52,24 +56,62 @@ app.post('/movies', async (req, res) => {
 
 })
 
+//render home page in route /movies ✅
+// app.get('/movies', async (req, res) => {
+//     res.render('home.ejs')
+    
+// })
+
+
 // show all movies ✅
 app.get('/movies', async (req, res) => {
-
     let allMovies = await Movie.find()
-    res.send(allMovies)
+    // console.log(allMovies)
+    res.render('index.ejs', {
+        allMovies: allMovies
+    })
 })
 
 // show a movie by its id  ✅
-app.get('/movies/:id', async (req, res) => {
-    let movieById = await Movie.findById(req.params.id)
-    res.send(movieById)
+app.get('/movies/:movieId', async (req, res) => {
+    let movieById = await Movie.findById(req.params.movieId)
+    res.render('show.ejs', {
+        item: movieById
+    })
 })
 
+// find and delete ✅
+app.delete('/movies/:movieId', async (req, res) => {
+    await Movie.findByIdAndDelete(req.params.movieId)
+    res.redirect('/movies')
+})
+
+
+
 //edit == didnt work(i dont think we covered this)❌
-// app.get('/movies/:id/edit', async (req, res) => {
-//     const movie = await Movie.findById(req.params.id)
+// app.put('/movies/:movieId', async (req, res) => {
+//     const movieEdit = await Movie.findById(req.params.id)
 //     res.render('edit.ejs')
 // })
+
+app.get('/movies/:movieId/edit', async (req, res) => {
+    let movieById = await Movie.findById(req.params.movieId)
+    console.log(movieById)
+res.render('edit.ejs',{
+    movieById: movieById
+})
+
+
+})
+
+//update movies in database
+app.put('/movies/:movieId', async (req, res) => {
+    const movieData = {}
+    movieData.name = req.body.name
+    console.log('req.body: ', req.body)
+     let updateMovie = await Movie.findByIdAndUpdate(req.params.movieId, req.body, {new: true})
+     res.redirect(`/movies/${req.params.movieId}`)
+})
 
 //update based on id == didnt work ❌
 // app.put('/movies/:id', async (req, res) => {
@@ -78,11 +120,7 @@ app.get('/movies/:id', async (req, res) => {
 //     res.send(updateMovie)
 // })
 
-// didnt work ❌
-// app.delete('/movies/:id', async (req, res) => {
-//     let deletedMovie = await Movie.findByIdAndDelete(req.params.id)
-//     res.send(deletedMovie)
-// })
+/
 
 
 

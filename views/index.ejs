@@ -1,0 +1,21 @@
+<%- include('./partials/nav') %>
+
+<h1> All Movies </h1>
+    <% allMovies.forEach((item) => { %>
+        <ul>
+            <a href="/movies/<%= item._id %>">
+            <li><p>Title: <%= item.name %></p></li>
+            <li> <p>Id: <%= item._id %></p></li>
+                
+           
+        </a>
+        </ul>
+          
+       
+        
+        
+   <% }) %>
+
+    
+</body>
+</html>

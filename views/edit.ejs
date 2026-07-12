@@ -1,17 +1,17 @@
 <%- include('./partials/nav') %>
 
- <!-- <h1> Edit a Movie </h1>
-    <form action="/movies/:id/edit" method="POST">
+
+ <h1> Edit <%= movieById.name %> </h1>
+    <form action="/movies/<%=movieById._id %>?_method=PUT" method="POST">
         <label for="name">Name:</label>
-        <input type="text" id="name" name="name">
+        <input type="text" name="name" value="<%= movieById.name %>">
 
        
-        <label for="genre">Genre:</label>
-        <input type="text" id="genre" name="genre">
-
-        <label for="releaseYear">Release Year:</label>
-        <input type="number" id="releaseYear" name="releaseYear">
-        <button type="submit">Add Movie</button>
+        <!-- <label for="genre">Genre:</label>
+        <input type="text" id="genre" name="genre"> -->
+        <!-- <label for="releaseYear">Release Year:</label>
+        <input type="number" id="releaseYear" name="releaseYear"> -->
+        <button type="submit">Update Movie</button>
     </form>
 </body>
-</html> -->
+</html>

@@ -1,0 +1,21 @@
+<%- include('./partials/nav') %>
+
+
+
+<h1><%= item.name %></h1>
+<h1><%= item.genre %></h1>
+<h1><%= item.releaseYear %></h1>
+
+<% if (item.genre === 'Action'){ %>
+<p> This movie is action </p>
+<% } else { %>
+    <p>its not action</p>
+<%}%> 
+<form action="/movies/<%= item._id%>?_method=DELETE" method="POST">
+    <button type="submit">Delete</button>
+</form>
+<a href="/movies/<%= item._id %>/edit">
+Edit <%= item.name %>
+</a>
+</body>
+</html>

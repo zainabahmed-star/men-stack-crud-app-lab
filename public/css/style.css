@@ -11,6 +11,10 @@ body {
 h1{
     color: azure;
 }
+
+p {
+    color: azure;
+}
 form {
     font-family: "Righteous", sans-serif;
     display: flex;
@@ -29,4 +33,9 @@ form {
 button {
     margin: 10px;
     font-family: "Righteous", sans-serif;
+}
+
+a {
+    color: rgb(74, 244, 244);
+    margin: 15px;
 }
